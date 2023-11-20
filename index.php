@@ -38,10 +38,6 @@
     <script defer src="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v3.0.0-rc.17/dist/cookieconsent.umd.js"></script>
     <script defer src="cookieconsent-config.js"></script>
 
-    <!--
-    type="text/plain" data-category="category-name"
-    -->
-
     <script type="text/plain" data-category="functionality" data-service="Özel Script">
         console.log('Özel Script enabled!');
     </script>
