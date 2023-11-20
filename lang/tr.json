@@ -1,0 +1,69 @@
+{
+    "consentModal": {
+        "label": "Çerez Yönetimi",
+        "title": "Gizlilik Tercihi Merkezi",
+        "description": "İnternet Sitesi’nin sağlanması için zorunlu çerezler kullanmaktayız. Ayrıca, İnternet Sitesi’ni daha işlevsel kullanabilmeniz ve deneyiminizin iyileştirilmesi kapsamında performans ve analitik çerezleri, size yönelik kişiselleştirilmiş ürün ve hizmet tanıtımı kapsamında ise reklam ve pazarlama çerezleri kullanılmak istenmektedir. Zorunlu olmayan çerezler onay vermediğiniz durumlarda kullanılmayacaktır.",
+        "acceptAllBtn": "Tümünü Kabul Et",
+        "closeIconLabel": "İsteğe Bağlı Çerezlerin Tümünü Reddet ve Kapat",
+        "acceptNecessaryBtn": "İsteğe Bağlı Çerezlerin Tümünü Reddet",
+        "showPreferencesBtn": "Çerez Tercihlerimi Yönet",
+        "footer": "<a href=\"#link\">Gizlilik Politikası</a><a href=\"#link\">Kullanım Koşulları</a>"
+    },
+    "preferencesModal": {
+        "title": "Çerez Yönetim Merkezi",
+        "acceptAllBtn": "Tümünü Kabul Et",
+        "acceptNecessaryBtn": "İsteğe Bağlı Çerezlerin Tümünü Reddet",
+        "savePreferencesBtn": "Tercihlerimi Kaydet",
+        "closeIconLabel": "Pencereyi Kapat",
+        "serviceCounterLabel": "Servis|Servis",
+        "sections": [
+            {
+                "title": "",
+                "description": "İnternet Sitesi’nin sağlanması için zorunlu çerezler kullanmaktayız. Ayrıca, İnternet Sitesi’ni daha işlevsel kullanabilmeniz ve deneyiminizin iyileştirilmesi kapsamında performans ve analitik çerezleri, size yönelik kişiselleştirilmiş ürün ve hizmet tanıtımı kapsamında ise reklam ve pazarlama çerezleri kullanılmak istenmektedir. Zorunlu olmayan çerezler onay vermediğiniz durumlarda kullanılmayacaktır."
+            },
+            {
+                "title": "Zorunlu Çerezler <span class=\"pm__badge\">Her zaman aktif</span>",
+                "description": "Zorunlu çerezler, İnternet Sitesi’ni görüntülemeniz esnasında cihazınıza yerleştirilen ve sunulan online servislerin düzgün şekilde çalışabilmesi için gerekli olan çerezlerdir.",
+                "linkedCategory": "necessary"
+            },
+            {
+                "title": "Performans ve Analitik Çerezleri",
+                "description": "Performans ve analitik çerezleri, İnternet Sitesi ziyaret ve trafiğini takip ve analiz etmemizi sağlar. Bu çerezler sayesinde İnternet Sitesi üzerindeki alanlardan hangilerinin en sık ya da seyrek ziyaret edildiği gibi bilgileri edinebilir ve İnternet Sitesi’nin trafiğini optimize edebiliriz.",
+                "linkedCategory": "analytics",
+                "cookieTable": {
+                    "headers": {
+                        "name": "Çerez",
+                        "Service": "Servis",
+                        "description": "Açıklama"
+                    },
+                    "body": [
+                        {
+                            "name": "_ga",
+                            "Service": "Google İzni",
+                            "description": "Açık rızanızı vermeniz halinde, Google Analytics çerezlerinin kullanılması ile işlenen kişisel verileriniz İnternet Sitesi üzerinde kullanıcı davranışlarının analiz edilmesi suretiyle raporlama yapılması amacıyla yurt dışında yerleşik Google LLC'ye aktarılabilecektir."
+                        },
+                        {
+                            "name": "im_youtube",
+                            "Service": "Youtube Embed",
+                            "description": "Kullanıcının Youtube hizmetini kabul edip etmediğini hatırlamak için kullanılır."
+                        },
+                        {
+                            "name": "im_vimeo",
+                            "Service": "Vimeo Embed",
+                            "description": "Kullanıcının Vimeo hizmetini kabul edip etmediğini hatırlamak için kullanılır."
+                        }
+                    ]
+                }
+            },
+            {
+                "title": "Kişiselleştirilmiş Reklam ve Pazarlama Çerezleri",
+                "description": "Kişiselleştirilmiş reklam çerezleri, sizlere İnternet Sitesi’nde veya İnternet Sitesi haricindeki mecralarda görüntüleme geçmişinize ve ziyaretçi profilinize uygun olarak kişiselleştirilmiş ürün ve hizmet tanıtımı yapmak için kullanılır.",
+                "linkedCategory": "ads"
+            },
+            {
+                "title": "Detaylı Bilgi",
+                "description": "Çerezlere ve tercihlerinize ilişkin politikamızla ilgili sorularınız için bizimle <a class=\"cc__link\" href=\"#yourdomain.com\">iletişime geçebilirsiniz</a>."
+            }
+        ]
+    }
+}
