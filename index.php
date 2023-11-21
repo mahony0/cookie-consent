@@ -1,10 +1,11 @@
 <!doctype html>
-<html lang="tr" class="cc--darkmode">
+<html lang="<?= !empty($_GET['l']) ? strip_tags($_GET['l']) : 'tr' ?>"
+    class="<?= !empty($_GET['m']) ? $_GET['m'] : 'cc--darkmode' ?>">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
 
-    <title>Home</title>
+    <title>Çerez Yönetimi</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/iframemanager@1.2.5/dist/iframemanager.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v3.0.0-rc.17/dist/cookieconsent.css" />
@@ -20,19 +21,37 @@
 </head>
 <body>
     <div id="app">
-        <h1>CookieConsent v3 + IframeManager (<?= time() ?>)</h1>
-        <button data-cc="show-preferencesModal" type="button">Show preferences modal</button>
-        <br>
-        <br>
+        <h1>Çerez Yönetimi</h1>
+        <button data-cc="show-preferencesModal" type="button">Çerez Yönetim Merkezi Popup Göster</button>
+        <br><br>
+        <div style="display: inline-block; width: 25%;">
+            <ul>
+                <li><a href="?l=tr">TR</a></li>
+                <li><a href="?l=en">EN</a></li>
+                <li><a href="?l=de">DE</a></li>
+                <li><a href="?l=ar">AR</a></li>
+                <li><a href="?l=es">ES</a></li>
+                <li><a href="?l=fr">FR</a></li>
+                <li><a href="?l=it">IT</a></li>
+            </ul>
+        </div>
+        <div style="display: inline-block; width: 25%;">
+            <ul>
+                <li><a href="?m=cc--darkmode">DARK</a></li>
+                <li><a href="?m=light">LIGHT</a></li>
+            </ul>
+        </div>
+        <br><br>
         <div data-service="youtube" data-id="5b35haQV7tU" data-autoscale></div>
         <br>
         <div data-service="vimeo" data-id="776749483" data-title="Apple “Escape From The Office”" data-autoscale></div>
     </div>
 
     <script>
-        var cerezUrlGizlilik = "https://www.google.com/Gizlilik";
-        var cerezUrlKullanim = "https://www.google.com/Kullanim";
-        var cerezUrlIletisim = "https://www.google.com/Iletisim";
+        var ccActiveLocale = "<?= !empty($_GET['l']) ? strip_tags($_GET['l']) : 'tr' ?>";
+        var ccUrlGizlilik = "https://www.google.com/Gizlilik";
+        var ccUrlKullanim = "https://www.google.com/Kullanim";
+        var ccUrlIletisim = "https://www.google.com/Iletisim";
     </script>
     <script defer src="https://cdn.jsdelivr.net/gh/orestbida/iframemanager@1.2.5/dist/iframemanager.js"></script>
     <script defer src="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v3.0.0-rc.17/dist/cookieconsent.umd.js"></script>
