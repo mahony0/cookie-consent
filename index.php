@@ -49,6 +49,8 @@
 
     <script>
         var ccActiveLocale = "<?= !empty($_GET['l']) ? strip_tags($_GET['l']) : 'tr' ?>";
+        var ccYoutubeEmbedOn = true;
+        var ccVimeoEmbedOn = true;
         var ccUrlGizlilik = "https://www.google.com/Gizlilik";
         var ccUrlKullanim = "https://www.google.com/Kullanim";
         var ccUrlIletisim = "https://www.google.com/Iletisim";
