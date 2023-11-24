@@ -54,10 +54,15 @@
         var ccUrlGizlilik = "https://www.google.com/Gizlilik";
         var ccUrlKullanim = "https://www.google.com/Kullanim";
         var ccUrlIletisim = "https://www.google.com/Iletisim";
+        var ccShowNecessary = true;
+        var ccShowFunctionality = true;
+        var ccShowAnalytics = true;
+        var ccShowMarketing = true;
+        var ccShowDetailedInfo = true;
     </script>
     <script defer src="https://cdn.jsdelivr.net/gh/orestbida/iframemanager@1.2.5/dist/iframemanager.js"></script>
     <script defer src="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v3.0.0-rc.17/dist/cookieconsent.umd.js"></script>
-    <script defer src="cookieconsent-config.js"></script>
+    <script defer src="cookieconsent-config.js?v=1.0"></script>
 
     <script type="text/plain" data-category="functionality" data-service="Özel Script">
         console.log('Özel Script enabled!');

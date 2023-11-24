@@ -1,8 +1,11 @@
+/* v1.1 - 2023-11-24 */
+
+/*
+ * Iframe Manager
+ */
 const im = iframemanager();
 
-/* v1.0 - 2023-11-24 */
-
-im.run({
+let imRunConf = {
     onChange: ({changedServices, eventSource}) => {
         if (eventSource.type === 'click') {
             const servicesToAccept = [
@@ -14,7 +17,7 @@ im.run({
     },
     currLang: ccActiveLocale,
     services: {
-        youtube: {
+        ...(ccYoutubeEmbedOn === true && {youtube: {
             embedUrl: 'https://www.youtube-nocookie.com/embed/{data-id}',
             thumbnailUrl: 'https://i3.ytimg.com/vi/{data-id}/hqdefault.jpg',
             iframe: {
@@ -50,8 +53,8 @@ im.run({
                     loadAllBtn: 'Accetta e Mostra'
                 }
             }
-        },
-        vimeo: {
+        }}),
+        ...(ccVimeoEmbedOn === true && {vimeo: {
             embedUrl: 'https://player.vimeo.com/video/{data-id}',
             thumbnailUrl: async (dataId, setThumbnail) => {
                 const url = `https://vimeo.com/api/v2/video/${dataId}.json`;
@@ -92,11 +95,31 @@ im.run({
                     loadAllBtn: 'Accetta e Mostra'
                 }
             }
-        }
+        }})
     }
-});
+};
 
-CookieConsent.run({
+/*
+if (ccYoutubeEmbedOn !== true) {
+    // imRunConf.services = Object.assign(imRunConf.services, {youtube: serviceYoutube});
+    delete imRunConf.services.youtube;
+}
+if (ccVimeoEmbedOn !== true) {
+    delete imRunConf.services.vimeo;
+}
+*/
+/*
+if (Object.keys(imRunConf.services).length < 1) {
+    delete imRunConf.services;
+}
+*/
+
+im.run(imRunConf);
+
+/*
+ * Cookie Consent
+ */
+let ccConf = {
     guiOptions: {
         consentModal: {
             layout: "box inline",
@@ -128,28 +151,24 @@ CookieConsent.run({
                 reloadPage: true
             },
             services: {
-                youtube: {
-                    label: "Youtube Embed",
+                ...(ccYoutubeEmbedOn === true && {youtube: {
+                    label: "Youtube Embed Video",
                     onAccept: () => {
-                        // console.log("services-youtube-onAccept");
                         im.acceptService("youtube")
                     },
                     onReject: () => {
-                        // console.log("services-youtube-onReject");
                         im.rejectService("youtube")
                     }
-                },
-                vimeo: {
-                    label: "Vimeo Embed",
+                }}),
+                ...(ccVimeoEmbedOn === true && {vimeo: {
+                    label: "Vimeo Embed Video",
                     onAccept: () => {
-                        // console.log("services-vimeo-onAccept");
                         im.acceptService("vimeo")
                     },
                     onReject: () => {
-                        // console.log("services-vimeo-onReject");
                         im.rejectService("vimeo")
                     }
-                }
+                }})
             }
         },
         marketing: {
@@ -186,31 +205,31 @@ CookieConsent.run({
                             "title": "",
                             "description": "İnternet Sitesi’nin çalışabilmesi için zorunlu çerezler kullanmaktayız. Ayrıca, İnternet Sitesi’ni daha işlevsel kullanabilmeniz ve deneyiminizin iyileştirilmesi kapsamında performans ve analitik çerezleri, size yönelik kişiselleştirilmiş ürün ve hizmet tanıtımı kapsamında ise reklam ve pazarlama çerezleri kullanılmak istenmektedir. Zorunlu olmayan çerezler onay vermediğiniz durumlarda kullanılmayacaktır."
                         },
-                        {
+                        ccShowNecessary ? {
                             "title": "Zorunlu Çerezler <span class=\"pm__badge\">Her Zaman Etkin</span>",
                             "description": "Zorunlu çerezler, İnternet Sitesi’ni görüntülemeniz esnasında cihazınıza yerleştirilen ve sunulan online servislerin düzgün şekilde çalışabilmesi için gerekli olan çerezlerdir.",
                             "linkedCategory": "necessary"
-                        },
-                        {
+                        } : undefined,
+                        ccShowFunctionality ? {
                             "title": "İşlevsellik Çerezleri",
                             "description": "İşlevsellik çerezleri, Platform üzerindeki belirli işlevlerin sağlanması ve bunlara dair tercihlerinizin hatırlanması için gerekli olan çerezlerdir.",
                             "linkedCategory": "functionality"
-                        },
-                        {
+                        } : undefined,
+                        ccShowAnalytics ? {
                             "title": "Performans ve Analitik Çerezleri",
                             "description": "Performans ve analitik çerezleri, İnternet Sitesi ziyaret ve trafiğini takip ve analiz etmemizi sağlar. Bu çerezler sayesinde İnternet Sitesi üzerindeki alanlardan hangilerinin en sık ya da seyrek ziyaret edildiği gibi bilgileri edinebilir ve İnternet Sitesi’nin trafiğini optimize edebiliriz.",
                             "linkedCategory": "analytics"
-                        },
-                        {
+                        } : undefined,
+                        ccShowMarketing ? {
                             "title": "Reklam ve Pazarlama Çerezleri",
                             "description": "Reklam çerezleri, sizlere İnternet Sitesi’nde veya İnternet Sitesi haricindeki mecralarda görüntüleme geçmişinize ve ziyaretçi profilinize uygun olarak kişiselleştirilmiş ürün ve hizmet tanıtımı yapmak için kullanılır.",
                             "linkedCategory": "marketing"
-                        },
-                        {
+                        } : undefined,
+                        ccShowDetailedInfo ? {
                             "title": "Detaylı Bilgi",
                             "description": "Çerezlere ve tercihlerinize ilişkin politikamızla ilgili sorularınız için bizimle <a class=\"cc__link\" href=\"" + ccUrlIletisim + "\">iletişime geçebilirsiniz</a>."
-                        }
-                    ]
+                        } : undefined
+                    ].filter(Boolean)
                 }
             },
             en: {
@@ -236,31 +255,31 @@ CookieConsent.run({
                             "title": "",
                             "description": "We use necessary cookies for the website to function. Additionally, performance and analytical cookies are intended to be used for you to use the website more functionally and to enhance your experience. Advertising and marketing cookies are also intended to be used for personalized product and service promotions. Non-essential cookies will not be used if you do not give your consent."
                         },
-                        {
+                        ccShowNecessary ? {
                             "title": "Strictly Necessary Cookies <span class=\"pm__badge\">Always Enabled</span>",
                             "description": "Essential cookies are cookies placed on your device during your visit to the website, and they are necessary for the proper functioning of the online services provided.",
                             "linkedCategory": "necessary"
-                        },
-                        {
+                        } : undefined,
+                        ccShowFunctionality ? {
                             "title": "Functionality Cookies",
                             "description": "Functionality cookies are necessary for providing specific functions on the platform and remembering your preferences related to these functions.",
                             "linkedCategory": "functionality"
-                        },
-                        {
+                        } : undefined,
+                        ccShowAnalytics ? {
                             "title": "Analytics Cookies",
                             "description": "Performance and analytical cookies allow us to track and analyze website visits and traffic. Through these cookies, we can gather information such as which areas of the website are visited most frequently or infrequently, enabling us to optimize website traffic.",
                             "linkedCategory": "analytics"
-                        },
-                        {
+                        } : undefined,
+                        ccShowMarketing ? {
                             "title": "Advertisement Cookies",
                             "description": "Advertising cookies are used to personalize product and service promotions tailored to your viewing history and visitor profile on the website or other media channels, both on and off the website.",
                             "linkedCategory": "marketing"
-                        },
-                        {
+                        } : undefined,
+                        ccShowDetailedInfo ? {
                             "title": "More information",
                             "description": "For questions regarding our cookie and preference policy, you can contact us at <a class=\"cc__link\" href=\"" + ccUrlIletisim + "\">contact us</a>."
-                        }
-                    ]
+                        } : undefined
+                    ].filter(Boolean)
                 }
             },
             de: {
@@ -286,31 +305,31 @@ CookieConsent.run({
                             "title": "",
                             "description": "Wir verwenden notwendige Cookies, damit die Website funktioniert. Darüber hinaus sollen Leistungs- und Analyse-Cookies dazu dienen, die Website funktionaler zu nutzen und Ihr Erlebnis zu verbessern. Werbe- und Marketing-Cookies sollen ebenfalls für personalisierte Produkt- und Serviceaktionen verwendet werden. Nicht unbedingt erforderliche Cookies werden nicht verwendet, wenn Sie Ihre Zustimmung nicht erteilen."
                         },
-                        {
+                        ccShowNecessary ? {
                             "title": "Streng Notwendige Cookies <span class=\"pm__badge\">Immer Aktiviert</span>",
                             "description": "Pflicht-Cookies sind Cookies, die während Ihres Besuchs auf der Website auf Ihrem Gerät platziert werden und für das reibungslose Funktionieren der angebotenen Online-Dienste erforderlich sind.",
                             "linkedCategory": "necessary"
-                        },
-                        {
+                        } : undefined,
+                        ccShowFunctionality ? {
                             "title": "Funktionalitäts Cookies",
                             "description": "Funktionscookies sind notwendig, um bestimmte Funktionen auf der Plattform bereitzustellen und Ihre Präferenzen im Zusammenhang mit diesen Funktionen zu speichern.",
                             "linkedCategory": "functionality"
-                        },
-                        {
+                        } : undefined,
+                        ccShowAnalytics ? {
                             "title": "Analytische Cookies",
                             "description": "Leistungs- und Analyse-Cookies ermöglichen es uns, Website-Besuche und -Verkehr zu verfolgen und zu analysieren. Durch diese Cookies können wir Informationen sammeln, wie z. B. welche Bereiche der Website am häufigsten oder am seltensten besucht werden, um den Website-Verkehr zu optimieren.",
                             "linkedCategory": "analytics"
-                        },
-                        {
+                        } : undefined,
+                        ccShowMarketing ? {
                             "title": "Werbung Cookies",
                             "description": "Werbe-Cookies werden verwendet, um Produkt- und Serviceaktionen zu personalisieren, die auf Ihrer Ansichtsgeschichte und Ihrem Besucherprofil auf der Website oder anderen Medienkanälen basieren, sowohl auf der Website als auch außerhalb der Website.",
                             "linkedCategory": "marketing"
-                        },
-                        {
+                        } : undefined,
+                        ccShowDetailedInfo ? {
                             "title": "Weitere Informationen",
                             "description": "Für Fragen zu unserer Cookie- und Präferenzrichtlinie können Sie uns unter <a class=\"cc__link\" href=\"" + ccUrlIletisim + "\">Kontaktieren Sie uns</a> kontaktieren."
-                        }
-                    ]
+                        } : undefined
+                    ].filter(Boolean)
                 }
             },
             ar: {
@@ -336,31 +355,31 @@ CookieConsent.run({
                             "title": "",
                             "description": "نستخدم ملفات تعريف الارتباط الضرورية لضمان عمل موقع الإنترنت. بالإضافة إلى ذلك، يُفضل استخدام ملفات تعريف الأداء والتحليل لتمكينك من استخدام الموقع بشكل أكثر وظائف وتعزيز تجربتك. كما يُرغب في استخدام ملفات تعريف الإعلانات والتسويق لترويج منتجات وخدمات مخصصة لك. لن يتم استخدام ملفات تعريف الارتباط غير الضرورية إذا لم تعطي موافقتك."
                         },
-                        {
+                        ccShowNecessary ? {
                             "title": "ملفات تعريف الارتباط الضرورية للغاية <span class=\"pm__badge\">ممكّن دائمًا</span>",
                             "description": "تعد ملفات تعريف الارتباط الأساسية ملفات تُوضع على جهازك أثناء زيارتك للموقع الإلكتروني، وهي ضرورية لضمان عمل الخدمات الإلكترونية المقدمة بشكل صحيح.",
                             "linkedCategory": "necessary"
-                        },
-                        {
+                        } : undefined,
+                        ccShowFunctionality ? {
                             "title": "ملفات تعريف الارتباط الوظيفية",
                             "description": "ملفات تعريف الارتباط الوظيفية ضرورية لتوفير وظائف معينة على النظام وتذكير تفضيلاتك المتعلقة بهذه الوظائف.",
                             "linkedCategory": "functionality"
-                        },
-                        {
+                        } : undefined,
+                        ccShowAnalytics ? {
                             "title": "ملفات تعريف الارتباط التحليلية",
                             "description": "تسمح لنا ملفات تعريف الارتباط الأداء والتحليل بتتبع وتحليل زيارات وحركة مرور موقع الويب. من خلال هذه الملفات ، يمكننا جمع معلومات مثل المناطق التي يتم زيارتها بشكل متكرر أو نادرًا على موقع الويب ، مما يمكننا من تحسين حركة المرور على الموقع.",
                             "linkedCategory": "analytics",
-                        },
-                        {
+                        } : undefined,
+                        ccShowMarketing ? {
                             "title": "ملفات تعريف الارتباط للإعلان",
                             "description": "تُستخدم ملفات تعريف الارتباط الإعلانية لتخصيص ترويج المنتجات والخدمات وفقًا لتاريخ مشاهدتك وملف زائر على موقع الويب أو وسائط الإعلام الأخرى ، سواء على الموقع أو خارجه.",
                             "linkedCategory": "marketing"
-                        },
-                        {
+                        } : undefined,
+                        ccShowDetailedInfo ? {
                             "title": "معلومات اكثر",
                             "description": "للأسئلة المتعلقة بسياسة ملفات تعريف الارتباط وتفضيلاتك ، يمكنك الاتصال بنا على <a class=\"cc__link\" href=\"" + ccUrlIletisim + "\">اتصل بنا</a>."
-                        }
-                    ]
+                        } : undefined
+                    ].filter(Boolean)
                 }
             },
             es: {
@@ -386,31 +405,31 @@ CookieConsent.run({
                             "title": "",
                             "description": "Utilizamos cookies necesarias para que el sitio web funcione. Además, se desea utilizar cookies de rendimiento y analíticas para que pueda utilizar el sitio web de manera más funcional y mejorar su experiencia. También se desea utilizar cookies publicitarias y de marketing para promociones personalizadas de productos y servicios. Las cookies no esenciales no se utilizarán si no otorga su consentimiento."
                         },
-                        {
+                        ccShowNecessary ? {
                             "title": "Cookies Estrictamente Necesarias <span class=\"pm__badge\">Siempre Habilitado</span>",
                             "description": "Las cookies esenciales son cookies que se colocan en su dispositivo durante su visita al sitio web y son necesarias para el funcionamiento adecuado de los servicios en línea proporcionados.",
                             "linkedCategory": "necessary"
-                        },
-                        {
+                        } : undefined,
+                        ccShowFunctionality ? {
                             "title": "Cookies de Funcionalidad",
                             "description": "Las cookies de funcionalidad son necesarias para proporcionar funciones específicas en la plataforma y recordar sus preferencias relacionadas con estas funciones.",
                             "linkedCategory": "functionality"
-                        },
-                        {
+                        } : undefined,
+                        ccShowAnalytics ? {
                             "title": "Cookies Analíticas",
                             "description": "Las cookies de rendimiento y analíticas nos permiten rastrear y analizar las visitas y el tráfico del sitio web. A través de estas cookies, podemos obtener información como qué áreas del sitio web se visitan con más frecuencia o menos frecuencia, lo que nos permite optimizar el tráfico del sitio web.",
                             "linkedCategory": "analytics",
-                        },
-                        {
+                        } : undefined,
+                        ccShowMarketing ? {
                             "title": "Cookies Publicitarias",
                             "description": "Las cookies publicitarias se utilizan para personalizar promociones de productos y servicios adaptadas a su historial de visualización y perfil de visitante en el sitio web u otros canales de medios, tanto en el sitio web como fuera de él.",
                             "linkedCategory": "marketing"
-                        },
-                        {
+                        } : undefined,
+                        ccShowDetailedInfo ? {
                             "title": "Más información",
                             "description": "Para preguntas sobre nuestra política de cookies y preferencias, puedes contactarnos en <a class=\"cc__link\" href=\"" + ccUrlIletisim + "\">contáctanos</a>."
-                        }
-                    ]
+                        } : undefined
+                    ].filter(Boolean)
                 }
             },
             fr: {
@@ -436,31 +455,31 @@ CookieConsent.run({
                             "title": "",
                             "description": "Nous utilisons des cookies nécessaires pour le bon fonctionnement du site web. De plus, des cookies de performance et d'analyse sont destinés à être utilisés pour que vous puissiez utiliser le site web de manière plus fonctionnelle et améliorer votre expérience. Des cookies publicitaires et marketing sont également prévus pour des promotions personnalisées de produits et services. Les cookies non essentiels ne seront pas utilisés si vous n'avez pas donné votre consentement."
                         },
-                        {
+                        ccShowNecessary ? {
                             "title": "Cookies Strictement Nécessaires <span class=\"pm__badge\">Toujours Activé</span>",
                             "description": "Les cookies essentielles sont des cookies placés sur votre appareil lors de votre visite sur le site web, et ils sont nécessaires au bon fonctionnement des services en ligne fournis.",
                             "linkedCategory": "necessary"
-                        },
-                        {
+                        } : undefined,
+                        ccShowFunctionality ? {
                             "title": "Cookies de Fonctionnalité",
                             "description": "Les cookies de fonctionnalité sont nécessaires pour fournir des fonctions spécifiques sur la plateforme et se souvenir de vos préférences liées à ces fonctions.",
                             "linkedCategory": "functionality"
-                        },
-                        {
+                        } : undefined,
+                        ccShowAnalytics ? {
                             "title": "Cookies Analytiques",
                             "description": "Les cookies de performance et d'analyse nous permettent de suivre et d'analyser les visites et le trafic du site web. Grâce à ces cookies, nous pouvons recueillir des informations telles que les zones du site web les plus fréquemment ou rarement visitées, ce qui nous permet d'optimiser le trafic du site web.",
                             "linkedCategory": "analytics",
-                        },
-                        {
+                        } : undefined,
+                        ccShowMarketing ? {
                             "title": "Cookies Publicitaires",
                             "description": "Les cookies publicitaires sont utilisés pour personnaliser les promotions de produits et services en fonction de votre historique de visionnage et de votre profil de visiteur sur le site web ou d'autres canaux de médias, à la fois sur le site web et en dehors.",
                             "linkedCategory": "marketing"
-                        },
-                        {
+                        } : undefined,
+                        ccShowDetailedInfo ? {
                             "title": "Plus d'informations",
                             "description": "Pour toute question concernant notre politique en matière de cookies et de préférences, vous pouvez nous contacter à l'adresse suivante : <a class=\"cc__link\" href=\"" + ccUrlIletisim + "\">contactez-nous</a>."
-                        }
-                    ]
+                        } : undefined
+                    ].filter(Boolean)
                 }
             },
             it: {
@@ -486,33 +505,42 @@ CookieConsent.run({
                             "title": "",
                             "description": "Utilizziamo cookie necessari affinché il sito web funzioni. Inoltre, si intende utilizzare cookie di performance e analitici per consentirti di utilizzare il sito web in modo più funzionale e migliorare la tua esperienza. Sono previsti anche cookie pubblicitari e di marketing per promozioni personalizzate di prodotti e servizi. I cookie non essenziali non saranno utilizzati se non fornisci il tuo consenso."
                         },
-                        {
+                        ccShowNecessary ? {
                             "title": "Cookie Strettamente Necessari <span class=\"pm__badge\">Sempre Attivati</span>",
                             "description": "I cookie essenziali sono cookie che vengono posizionati sul tuo dispositivo durante la visita al sito web e sono necessari per il corretto funzionamento dei servizi online forniti.",
                             "linkedCategory": "necessary"
-                        },
-                        {
+                        } : undefined,
+                        ccShowFunctionality ? {
                             "title": "Cookie di Funzionalità",
                             "description": "I cookie di funzionalità sono necessari per fornire funzioni specifiche sulla piattaforma e ricordare le tue preferenze relative a queste funzioni.",
                             "linkedCategory": "functionality"
-                        },
-                        {
+                        } : undefined,
+                        ccShowAnalytics ? {
                             "title": "Cookie Analitici",
                             "description": "I cookie di prestazione e analitici ci consentono di tracciare e analizzare le visite e il traffico del sito web. Attraverso questi cookie, possiamo raccogliere informazioni come quali aree del sito web vengono visitate più frequentemente o raramente, consentendoci di ottimizzare il traffico del sito web.",
                             "linkedCategory": "analytics"
-                        },
-                        {
+                        } : undefined,
+                        ccShowMarketing ? {
                             "title": "Cookie Pubblicitari",
                             "description": "I cookie pubblicitari vengono utilizzati per personalizzare promozioni di prodotti e servizi in base alla tua cronologia di visualizzazione e al profilo del visitatore sul sito web o su altri canali media, sia sul sito web che al di fuori di esso.",
                             "linkedCategory": "marketing"
-                        },
-                        {
+                        } : undefined,
+                        ccShowDetailedInfo ? {
                             "title": "Ulteriori informazioni",
                             "description": "Per domande sulla nostra politica sui cookie e sulle preferenze, puoi contattarci all'indirizzo <a class=\"cc__link\" href=\"" + ccUrlIletisim + "\">contattaci</a>."
-                        }
-                    ]
+                        } : undefined
+                    ].filter(Boolean)
                 }
             }
         }
     }
-});
+};
+
+if (ccYoutubeEmbedOn !== true) {
+    // delete ccConf.categories.analytics.services.youtube;
+}
+if (ccVimeoEmbedOn !== true) {
+    // delete ccConf.categories.analytics.services.vimeo;
+}
+
+CookieConsent.run(ccConf);
