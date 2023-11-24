@@ -24,7 +24,7 @@
         <h1>Çerez Yönetimi</h1>
         <button data-cc="show-preferencesModal" type="button">Çerez Yönetim Merkezi Popup Göster</button>
         <br><br>
-        <div style="display: inline-block; width: 25%;">
+        <div style="display: inline-grid; width: 25%;">
             <ul>
                 <li><a href="?l=tr">TR</a></li>
                 <li><a href="?l=en">EN</a></li>
@@ -35,7 +35,7 @@
                 <li><a href="?l=it">IT</a></li>
             </ul>
         </div>
-        <div style="display: inline-block; width: 25%;">
+        <div style="display: inline-grid; width: 25%;">
             <ul>
                 <li><a href="?m=cc--darkmode">DARK</a></li>
                 <li><a href="?m=light">LIGHT</a></li>

@@ -1,5 +1,7 @@
 const im = iframemanager();
 
+/* v1.0 - 2023-11-24 */
+
 im.run({
     onChange: ({changedServices, eventSource}) => {
         if (eventSource.type === 'click') {
@@ -214,7 +216,7 @@ CookieConsent.run({
             en: {
                 "consentModal": {
                     "label": "Cookie consent",
-                    "title": "Hello traveller, it's cookie time!",
+                    "title": "Privacy Preference Center",
                     "description": "We use cookies for the website to function, for you to use it more functionally, and to enhance your experience. Additionally, cookies may be used for personalized product and service promotions. Non-essential cookies will not be used if you do not give your consent.",
                     "acceptAllBtn": "Accept all",
                     "acceptNecessaryBtn": "Reject all",
@@ -264,7 +266,7 @@ CookieConsent.run({
             de: {
                 "consentModal": {
                     "label": "Cookie-Zustimmung",
-                    "title": "Hallo Reisende, es ist Kekszeit!",
+                    "title": "Datenschutz Präferenz Zentrum",
                     "description": "Wir verwenden Cookies, damit die Website funktioniert, Sie sie funktionaler nutzen können und Ihre Erfahrung verbessert wird. Darüber hinaus können Cookies für personalisierte Produkt- und Serviceangebote verwendet werden. Nicht unbedingt erforderliche Cookies werden nicht verwendet, wenn Sie Ihre Zustimmung nicht erteilen.",
                     "acceptAllBtn": "Alle akzeptieren",
                     "acceptNecessaryBtn": "Alle ablehnen",
@@ -314,7 +316,7 @@ CookieConsent.run({
             ar: {
                 "consentModal": {
                     "label": "موافقة ملفات تعريف الارتباط",
-                    "title": "مرحبًا أيها المسافر ، حان وقت ملفات تعريف الارتباط!",
+                    "title": "مركز تفضيلات الخصوصية",
                     "description": "نستخدم ملفات تعريف الارتباط لضمان عمل موقع الإنترنت، وتحسين قدرتك على استخدامه بشكل أكثر فعالية، وتعزيز تجربتك. كما يمكن استخدام ملفات تعريف الارتباط غير الضرورية لترويج منتجات وخدمات مخصصة لك. لن يتم استخدام ملفات تعريف الارتباط غير الضرورية إذا لم تعطي موافقتك.",
                     "acceptAllBtn": "رفض كل شيء",
                     "acceptNecessaryBtn": "قبول الكل",
@@ -364,7 +366,7 @@ CookieConsent.run({
             es: {
                 "consentModal": {
                     "label": "Consentimiento de cookies",
-                    "title": "Hola viajero, es la hora de las galletas!",
+                    "title": "Centro de Preferencias de Privacidad",
                     "description": "Utilizamos cookies para que el sitio web funcione, para que lo utilice de manera más funcional y para mejorar su experiencia. Además, las cookies pueden utilizarse para promocionar productos y servicios personalizados. Las cookies no esenciales no se utilizarán si no otorga su consentimiento.",
                     "acceptAllBtn": "Aceptar todo",
                     "acceptNecessaryBtn": "Rechazar todo",
@@ -414,7 +416,7 @@ CookieConsent.run({
             fr: {
                 "consentModal": {
                     "label": "Consentement aux cookies",
-                    "title": "Bonjour voyageur, c'est l'heure des cookies!",
+                    "title": "Centre de Préférences de Confidentialité",
                     "description": "Nous utilisons des cookies pour que le site web fonctionne, pour que vous puissiez l'utiliser de manière plus fonctionnelle et pour améliorer votre expérience. De plus, des cookies peuvent être utilisés pour des promotions personnalisées de produits et services. Les cookies non essentiels ne seront pas utilisés si vous ne donnez pas votre consentement.",
                     "acceptAllBtn": "Accepter tout",
                     "acceptNecessaryBtn": "Tout rejeter",
@@ -464,7 +466,7 @@ CookieConsent.run({
             it: {
                 "consentModal": {
                     "label": "Consenso sui cookie",
-                    "title": "Ciao viaggiatore, è tempo di biscotti!",
+                    "title": "Centro Preferenze Privacy",
                     "description": "Utilizziamo i cookie affinché il sito web funzioni, affinché tu lo utilizzi in modo più funzionale e per migliorare la tua esperienza. Inoltre, i cookie possono essere utilizzati per promuovere prodotti e servizi personalizzati. I cookie non essenziali non saranno utilizzati se non fornisci il tuo consenso.",
                     "acceptAllBtn": "Accetta tutto",
                     "acceptNecessaryBtn": "Rifiuta tutto",
