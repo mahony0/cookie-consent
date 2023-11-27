@@ -11,7 +11,7 @@ let imRunConf = {
             const servicesToAccept = [
                 ...CookieConsent.getUserPreferences().acceptedServices['analytics'],
                 ...changedServices
-                ];
+            ];
             CookieConsent.acceptService(servicesToAccept, 'analytics');
         }
     },
