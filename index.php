@@ -62,7 +62,7 @@
     </script>
     <script defer src="https://cdn.jsdelivr.net/gh/orestbida/iframemanager@1.2.5/dist/iframemanager.js"></script>
     <script defer src="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v3.0.0-rc.17/dist/cookieconsent.umd.js"></script>
-    <script defer src="cookieconsent-config.js?v=1.0"></script>
+    <script defer src="cookieconsent-config.js?v=1.1"></script>
 
     <script type="text/plain" data-category="functionality" data-service="Özel Script">
         console.log('Özel Script enabled!');
